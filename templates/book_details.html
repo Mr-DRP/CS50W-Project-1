@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Book title - Book Review
+{% endblock %}
+
+{% block contents %}
+<div class="container center_div mt-3">
+    <div class="row">
+        <div class="col-lg-4 text-center mt-3">
+            <h3>{{bookDetails[0][2]}}</h3>
+            <p>Author: {{bookDetails[0][3]}}<br>ISBN: {{bookDetails[0][1]}} <br>Published: {{bookDetails[0][4]}}</p>
+        </div>
+        <div class="col-lg-4 text-center mt-3">
+            {% if img_url is none %}
+            <img src="{{url_for('static', filename='NoImage_Available.png') }}" />
+            {% else %}
+            <img src="{{img_url}}" />
+            {% endif %}
+        </div>
+        <div class="col-lg-4 text-center mt-3">
+
+            <span>Ratings on</span>
+            
+            <img class="rating" src="{{ url_for('static', filename='goodread.jpg') }}">
+            <div>
+                <div class="star-rating">
+                    <div class="back-stars">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+
+                        <div class="front-stars" style="width: calc({{avg}}*100%/5);">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    &nbsp;
+                    <span>{{avg}}</span>
+                </div>
+                <div><small>(average rating)</small></div>
+            </div>
+            <div>
+                Total ratings: {{tot}}
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <h4>Submit your review</h4>
+            <form class="form" method="POST">
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Write your views" rows="3" name="text"></textarea>
+                </div>
+
+                <section class='rating-widget'>
+
+                    <!-- Rating Stars Box -->
+                    <div class='rating-stars text-center'>
+                        <span>Rate here</span>
+                        <ul id='stars'>
+                            <li class='star' title='Poor' data-value='1'>
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='Fair' data-value='2'>
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='Good' data-value='3'>
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='Excellent' data-value='4'>
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='WOW!!!' data-value='5'>
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class='success-box'>
+
+                    </div>
+                </section>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary my-1">Submit</button></div>
+
+            </form>
+        </div>
+
+    </div>
+    <div class="col mt-4">
+        <h4 class="text-center">What others say!!</h4>
+        {% if reviews|length %}
+        {% for review in reviews %}
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title"><b>{{review[0]}}</b> says,</h5>
+                <p class="card-text">{{review[1]}}</p>
+                <div class="text-primary">Rating: {{review[2]}}</div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        
+        <div>No reviews yet. Rate this book using above field.</div> 
+        {% endif %}   
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+
+        /* 1. Visualizing things on Hover - See next part for action on click */
+        $('#stars li').on('mouseover', function () {
+            var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+            // Now highlight all the stars that's not after the current hovered star
+            $(this).parent().children('li.star').each(function (e) {
+                if (e < onStar) {
+                    $(this).addClass('hover');
+                }
+                else {
+                    $(this).removeClass('hover');
+                }
+            });
+
+        }).on('mouseout', function () {
+            $(this).parent().children('li.star').each(function (e) {
+                $(this).removeClass('hover');
+            });
+        });
+
+
+        /* 2. Action to perform on click */
+        $('#stars li').on('click', function () {
+            var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+            var stars = $(this).parent().children('li.star');
+
+            for (i = 0; i < stars.length; i++) {
+                $(stars[i]).removeClass('selected');
+            }
+
+            for (i = 0; i < onStar; i++) {
+                $(stars[i]).addClass('selected');
+            }
+
+            // JUST RESPONSE (Not needed)
+            var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+            console.log(ratingValue);
+            responseMessage(ratingValue);
+        });
+    });
+
+    function responseMessage(ratingValue) {
+        $('.success-box').html("<input type=\"hidden\" name=\"rating\" value=\"" + ratingValue + "\">");
+    }
+</script>
+{% endblock %}

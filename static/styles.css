@@ -1,0 +1,119 @@
+.center_div{
+    margin: 0 auto;
+    width:80% /* value of your choice which suits your alignment */
+}
+
+/* login form */
+
+.login-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.login-form{
+    padding: 5%;
+    background: #0062cc;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form h3{
+    text-align: center;
+    color: #fff;
+}
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.login-form .btnSubmit{
+    font-weight: 600;
+    color: #0062cc;
+    background-color: #fff;
+}
+.login-form .ForgetPwd{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Rating Star Widgets Style */
+.rating-stars ul {
+    list-style-type:none;
+    padding:0;
+    
+    -moz-user-select:none;
+    -webkit-user-select:none;
+  }
+  .rating-stars ul > li.star {
+    display:inline-block;
+    
+  }
+  
+  /* Idle State of the stars */
+  .rating-stars ul > li.star > i.fa {
+    font-size:2.5em; /* Change the size of the stars */
+    color:#ccc; /* Color on idle state */
+  }
+  
+  /* Hover state of the stars */
+  .rating-stars ul > li.star.hover > i.fa {
+    color:#FFCC36;
+  }
+  
+  /* Selected state of the stars */
+  .rating-stars ul > li.star.selected > i.fa {
+    color:#FF912C;
+  }
+
+
+ 
+/*---------- star rating ----------*/
+.star-rating, .back-stars, .front-stars {
+  display: flex;
+}
+.star-rating {
+  font-size:1.5em;
+  justify-content: center;
+  margin-top: 5px;
+}
+.back-stars {
+  margin-left: 15px;
+  color: #ccc;
+  position: relative;
+}
+.front-stars {
+  color: #FF912C;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transition: all 0.5s;
+}
+
+.back-stars > i {
+  margin-right: 7px;
+}
+.front-stars > i {
+  margin-right: 7px;
+}
+.star-rating > span{
+  font-size: 0.7em;
+  margin-top: 0;
+}
+
+.rating {
+  width: 110px;
+}
+
+div.col-lg-4:nth-child(3) > span:nth-child(1){
+  font-size: 25px;
+  font-weight: 600;
+}
+
+
+
+  
+  

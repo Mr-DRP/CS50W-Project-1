@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+HomePage - Book Review
+{% endblock %}
+
+{% block contents %}
+<div class="container center_div">
+    <div class="text-center mt-3">
+        <h4>Largest collection of Books Reviews</h4>
+    </div>
+    <div class="text-center">
+        <form class="col-lg-6 offset-lg-3 " method="GET" action="{{url_for('search')}}">
+            <div class="row justify-content-center">
+                <input class="form-control mb-2" type="search" placeholder="Search" aria-label="Search" name="book">
+                <button class="btn btn-outline-success my-2 my-sm-0 mt-2" type="submit">Search</button>
+            </div>
+        </form>
+        {% if message is not none %}
+        <div class="text-danger">{{message}}</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
